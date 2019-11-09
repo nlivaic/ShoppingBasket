@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AddressBook.SharedKernel
+namespace ShoppingBasket.SharedKernel
 {
     public abstract class BaseValueObject<T> where T : class
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace AddressBook.SharedKernel
+namespace ShoppingBasket.SharedKernel
 {
     public abstract class BaseEntity<TId, T> : BaseEntityEquality<TId, T> where T : BaseEntityEquality<TId, T>
     {
