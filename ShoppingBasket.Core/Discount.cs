@@ -41,9 +41,9 @@ namespace ShoppingBasket.Core
             {
                 throw new ArgumentException("Discount cannot have target as a requirement.");
             }
-            if (priceReductionPercentage <= 0m)
+            if (priceReductionPercentage <= 0m || priceReductionPercentage > 100m)
             {
-                throw new ArgumentException("Discount must have a positive price reduction percentage.");
+                throw new ArgumentException("Discount must have a positive price reduction percentage, up to (and including) 100.");
             }
             Id = id;
             Name = name;

@@ -13,11 +13,35 @@ namespace ShoppingBasket.Core.Tests
             Assert.Throws<ArgumentException>(() => DiscountBuilder.BuildWithoutName());
         }
 
-        [Fact]
-        public void Discount_CreateDiscountWithInvalidPriceReduction_Throws()
+        [Theory]
+        [InlineData(-2)]
+        [InlineData(0)]
+        [InlineData(101)]
+        public void Discount_CreateDiscountWithInvalidPriceReductionPercentage_Throws(decimal priceReductionPercentage)
         {
             // Arrange, Act, Assert
-            Assert.Throws<ArgumentException>(() => DiscountBuilder.BuildWithInvalidPriceReduction());
+            Assert.Throws<ArgumentException>(() => new DiscountBuilder()
+                .AddPriceReductionPercentage(priceReductionPercentage)
+                .AddRequirements(ProductBuilder.Butter)
+                .AddTarget(ProductBuilder.Milk)
+                .Build());
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(99)]
+        [InlineData(100)]
+        public void Discount_CanCreateDiscountWithValidPriceReductionPercentage(decimal priceReductionPercentage)
+        {
+            // Arrange, Act
+            Discount target = new DiscountBuilder()
+                .AddPriceReductionPercentage(priceReductionPercentage)
+                .AddRequirements(ProductBuilder.Butter)
+                .AddTarget(ProductBuilder.Milk)
+                .Build();
+
+            // Assert
+            Assert.Equal(priceReductionPercentage, target.PriceReductionPercentage);
         }
 
         [Fact]
@@ -43,6 +67,24 @@ namespace ShoppingBasket.Core.Tests
 
         [Fact]
         public void Discount_CanScope()
+        {
+            // Arrange, Act
+            var target = new DiscountBuilder()
+                .AddPriceReductionPercentage(1m)
+                .AddRequirements(ProductBuilder.Butter, ProductBuilder.Bread)
+                .AddTarget(ProductBuilder.Milk)
+                .Build()
+                .Scope;
+
+            // Assert
+            Assert.Equal(3, target.Count());
+            Assert.True(target.Any(t => t == ProductBuilder.Butter));
+            Assert.True(target.Any(t => t == ProductBuilder.Bread));
+            Assert.True(target.Any(t => t == ProductBuilder.Milk));
+        }
+
+        [Fact]
+        public void Discount_CanBe100Percent()
         {
             // Arrange, Act
             var target = new DiscountBuilder()

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace ShoppingBasket.Core.Tests
@@ -46,9 +45,6 @@ namespace ShoppingBasket.Core.Tests
 
 
         public static Discount BuildWithoutName() => new Discount("", 1m,
-            new List<Product> { new Product("Product #1", 1m) }, new Product("Product #2", 1m));
-
-        public static Discount BuildWithInvalidPriceReduction() => new Discount("Name", 0m,
             new List<Product> { new Product("Product #1", 1m) }, new Product("Product #2", 1m));
 
         public static Discount BuildWithoutRequirements() => new Discount("Name", 1m,
