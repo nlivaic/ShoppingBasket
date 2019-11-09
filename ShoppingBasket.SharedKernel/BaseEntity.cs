@@ -32,8 +32,9 @@ namespace ShoppingBasket.SharedKernel
                 false;
         }
 
-        public static bool operator ==(BaseEntityEquality<TId, T> one, BaseEntityEquality<TId, T> other) => one.Equals(other);
-        public static bool operator !=(BaseEntityEquality<TId, T> one, BaseEntityEquality<TId, T> other) => !one.Equals(other);
+        public static bool operator ==(BaseEntityEquality<TId, T> one, BaseEntityEquality<TId, T> other)
+            => object.ReferenceEquals(one, null) ? object.ReferenceEquals(other, null) : one.Equals(other);
+        public static bool operator !=(BaseEntityEquality<TId, T> one, BaseEntityEquality<TId, T> other) => !(one == other);
 
         public override int GetHashCode() => Id.GetHashCode();
     }

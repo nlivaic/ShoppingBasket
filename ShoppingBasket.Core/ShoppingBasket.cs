@@ -7,8 +7,17 @@ namespace ShoppingBasket.Core
 {
     public class ShoppingBasket : BaseEntity<Guid, ShoppingBasket>
     {
-        public List<Item> Items { get; private set; }
+        public IEnumerable<Item> Items
+        {
+            get => _items;
+        }
         public decimal TotalPrice { get => Items.Sum(item => item.FinalPrice); }
+
+        private List<Item> _items;
+
+        public ShoppingBasket() : this(Guid.NewGuid(), new List<Item>())
+        {
+        }
 
         public ShoppingBasket(List<Item> items) : this(Guid.NewGuid(), items)
         {
@@ -17,7 +26,7 @@ namespace ShoppingBasket.Core
         public ShoppingBasket(Guid id, List<Item> items)
         {
             Id = id;
-            Items = items;
+            _items = items;
         }
     }
 }

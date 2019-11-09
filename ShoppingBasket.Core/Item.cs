@@ -19,12 +19,20 @@ namespace ShoppingBasket.Core
 
         public Item(Guid id, Product product)
         {
+            if (product == null)
+            {
+                throw new ArgumentException("Item must have a product.");
+            }
             Id = id;
             Product = product;
         }
 
         public void ScopeDiscount(Discount discount)
         {
+            if (discount == null)
+            {
+                throw new ArgumentException("Item can only scope a non-null discount.");
+            }
             Discount = discount;
         }
     }

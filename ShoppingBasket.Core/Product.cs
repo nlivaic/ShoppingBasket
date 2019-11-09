@@ -14,6 +14,14 @@ namespace ShoppingBasket.Core
 
         public Product(Guid id, string name, decimal price)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Product must have a name.");
+            }
+            if (price <= 0m)
+            {
+                throw new ArgumentException("Product must have a positive price.");
+            }
             Id = id;
             Name = name;
             Price = price;
