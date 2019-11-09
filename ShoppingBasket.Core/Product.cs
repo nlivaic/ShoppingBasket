@@ -12,7 +12,7 @@ namespace ShoppingBasket.Core
         {
         }
 
-        public Product(Guid id, string name, decimal price)
+        public Product(Guid id, string name, decimal price) : base(id)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -22,7 +22,6 @@ namespace ShoppingBasket.Core
             {
                 throw new ArgumentException("Product must have a positive price.");
             }
-            Id = id;
             Name = name;
             Price = price;
         }

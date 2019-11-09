@@ -23,9 +23,8 @@ namespace ShoppingBasket.Core
         {
         }
 
-        public ShoppingBasket(Guid id, List<Item> items)
+        public ShoppingBasket(Guid id, List<Item> items) : base(id)
         {
-            Id = id;
             _items = items;
         }
     }

@@ -28,6 +28,7 @@ namespace ShoppingBasket.Core
         }
 
         public Discount(Guid id, string name, decimal priceReductionPercentage, List<Product> requirements, Product target)
+            : base(id)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -41,7 +42,6 @@ namespace ShoppingBasket.Core
             {
                 throw new ArgumentException("Discount must have a positive price reduction percentage, up to (and including) 100.");
             }
-            Id = id;
             Name = name;
             PriceReductionPercentage = priceReductionPercentage;
             _scope = new List<Product>(requirements);

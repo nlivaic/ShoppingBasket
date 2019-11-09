@@ -10,6 +10,7 @@ namespace ShoppingBasket.Core.Tests
         public ShoppingBasketBuilder()
         {
             _target = new ShoppingBasket();
+            _products = new List<Product>();
         }
 
         public static ShoppingBasket BuildWithoutItemList() => new ShoppingBasket(null);

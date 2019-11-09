@@ -20,13 +20,12 @@ namespace ShoppingBasket.Core
         {
         }
 
-        public Item(Guid id, Product product)
+        public Item(Guid id, Product product) : base(id)
         {
             if (product == null)
             {
                 throw new ArgumentException("Item must have a product.");
             }
-            Id = id;
             Product = product;
         }
 
