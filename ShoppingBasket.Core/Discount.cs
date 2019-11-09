@@ -37,10 +37,6 @@ namespace ShoppingBasket.Core
             {
                 throw new ArgumentException("Discount must have at least one requirement and one target.");
             }
-            if (requirements.Any(r => r == target))
-            {
-                throw new ArgumentException("Discount cannot have target as a requirement.");
-            }
             if (priceReductionPercentage <= 0m || priceReductionPercentage > 100m)
             {
                 throw new ArgumentException("Discount must have a positive price reduction percentage, up to (and including) 100.");
@@ -51,6 +47,7 @@ namespace ShoppingBasket.Core
             _scope = new List<Product>(requirements);
             _scope.Add(target);
             _requirements = requirements;
+            Target = target;
         }
     }
 }

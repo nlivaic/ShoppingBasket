@@ -59,13 +59,6 @@ namespace ShoppingBasket.Core.Tests
         }
 
         [Fact]
-        public void Discount_CreateDiscountWithRequirementAndTargetSame_Throws()
-        {
-            // Arrange, Act, Assert
-            Assert.Throws<ArgumentException>(() => DiscountBuilder.BuildWithRequirementAndTargetSame());
-        }
-
-        [Fact]
         public void Discount_CanScope()
         {
             // Arrange, Act
@@ -78,27 +71,31 @@ namespace ShoppingBasket.Core.Tests
 
             // Assert
             Assert.Equal(3, target.Count());
-            Assert.True(target.Any(t => t == ProductBuilder.Butter));
-            Assert.True(target.Any(t => t == ProductBuilder.Bread));
-            Assert.True(target.Any(t => t == ProductBuilder.Milk));
+            Assert.Contains(target, t => t == ProductBuilder.Butter);
+            Assert.Contains(target, t => t == ProductBuilder.Bread);
+            Assert.Contains(target, t => t == ProductBuilder.Milk);
         }
 
         [Fact]
-        public void Discount_CanBe100Percent()
+        public void Discount_ValidInputs_Create()
         {
             // Arrange, Act
-            var target = new DiscountBuilder()
+            Discount target = new DiscountBuilder("ButterMilk")
                 .AddPriceReductionPercentage(1m)
-                .AddRequirements(ProductBuilder.Butter, ProductBuilder.Bread)
+                .AddRequirements(ProductBuilder.Butter)
                 .AddTarget(ProductBuilder.Milk)
-                .Build()
-                .Scope;
+                .Build();
 
             // Assert
-            Assert.Equal(3, target.Count());
-            Assert.True(target.Any(t => t == ProductBuilder.Butter));
-            Assert.True(target.Any(t => t == ProductBuilder.Bread));
-            Assert.True(target.Any(t => t == ProductBuilder.Milk));
+            Assert.Equal("ButterMilk", target.Name);
+            Assert.Equal(1m, target.PriceReductionPercentage);
+            Assert.Equal(2, target.Scope.Count());
+            Assert.Contains(ProductBuilder.Butter, target.Scope);
+            Assert.Contains(ProductBuilder.Milk, target.Scope);
+            Assert.Single(target.Requirements);
+            Assert.Contains(ProductBuilder.Butter, target.Requirements);
+            Assert.Equal(ProductBuilder.Milk, target.Target);
+
         }
     }
 }

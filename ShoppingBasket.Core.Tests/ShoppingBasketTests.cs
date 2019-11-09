@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace ShoppingBasket.Core.Tests
@@ -8,8 +7,11 @@ namespace ShoppingBasket.Core.Tests
         [Fact]
         public void ShoppingBasket_CanCreateWithoutItems()
         {
-            // Arrange, Act, Assert
-            new ShoppingBasketBuilder().Build();
+            // Arrange, Act
+            ShoppingBasket target = new ShoppingBasketBuilder().Build();
+
+            // Assert
+            Assert.Equal(0m, target.TotalSum);
         }
 
         [Fact]
@@ -19,15 +21,7 @@ namespace ShoppingBasket.Core.Tests
             ShoppingBasket target = new ShoppingBasketBuilder().Build();
 
             // Assert
-            Assert.Equal(0m, target.TotalSum);
+            Assert.Empty(target.Items);
         }
-
-        [Fact]
-        public void ShoppingBasket_CanCreateWithoutItemList_Throws()
-        {
-            // Arrange, Act, Assert
-            ShoppingBasketBuilder.BuildWithoutItemList();
-        }
-
     }
 }

@@ -17,11 +17,20 @@ namespace ShoppingBasket.Core.Tests
 
         public DiscountBuilder ButterBreadDiscount()
         {
+            _requirements.Add(ProductBuilder.Butter);
+            _requirements.Add(ProductBuilder.Butter);
+            _discountTarget = ProductBuilder.Bread;
+            _priceReductionPercentage = 50;
             return this;
         }
 
         public DiscountBuilder ThreeMilksDiscount()
         {
+            _requirements.Add(ProductBuilder.Milk);
+            _requirements.Add(ProductBuilder.Milk);
+            _requirements.Add(ProductBuilder.Milk);
+            _discountTarget = ProductBuilder.Milk;
+            _priceReductionPercentage = 100;
             return this;
         }
 
@@ -52,14 +61,6 @@ namespace ShoppingBasket.Core.Tests
 
         public static Discount BuildWithoutTarget() => new Discount("Name", 1m,
             new List<Product> { new Product("Product #1", 1m) }, null);
-
-        public static Discount BuildWithRequirementAndTargetSame() => new Discount("Name", 1m,
-            new List<Product>
-            {
-                ProductBuilder.Bread,
-                ProductBuilder.Milk,
-            },
-            ProductBuilder.Milk);
 
         public Discount Build() =>
             new Discount(_name, _priceReductionPercentage, _requirements, _discountTarget);
