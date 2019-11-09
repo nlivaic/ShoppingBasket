@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ShoppingBasket.Core.Tests
@@ -11,6 +12,8 @@ namespace ShoppingBasket.Core.Tests
         {
             _target = new ShoppingBasket();
         }
+
+        public static ShoppingBasket BuildWithoutItemList() => new ShoppingBasket(null);
 
         public ShoppingBasketBuilder AddButter()
         {

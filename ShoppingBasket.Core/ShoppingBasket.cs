@@ -11,7 +11,7 @@ namespace ShoppingBasket.Core
         {
             get => _items;
         }
-        public decimal TotalPrice { get => Items.Sum(item => item.FinalPrice); }
+        public decimal TotalSum { get => Items.Sum(item => item.FinalPrice); }
 
         private List<Item> _items;
 
@@ -19,7 +19,7 @@ namespace ShoppingBasket.Core
         {
         }
 
-        public ShoppingBasket(List<Item> items) : this(Guid.NewGuid(), items)
+        public ShoppingBasket(List<Item> items) : this(Guid.NewGuid(), items == null ? new List<Item>() : items)
         {
         }
 
