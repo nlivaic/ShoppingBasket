@@ -38,7 +38,7 @@ namespace ShoppingBasket.SharedKernel.Tests
         public void EntityObjects_DefaultId_Throws()
         {
             // Arrange, Act, Assert
-            Assert.Throws<ArgumentException>(() => new Core.ShoppingBasket(default(Guid), null));
+            Assert.Throws<ArgumentException>(() => new Core.ShoppingBasket(default(Guid)));
         }
 
         [Fact]

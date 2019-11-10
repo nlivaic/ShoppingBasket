@@ -5,7 +5,12 @@
     ✔ Logic @done (10. 11. 2019. 18:02:23)
     ✔ Tests - move tests to standalone file. Foo Foo @done (10. 11. 2019. 18:02:23)
 ☐ Logging
-☐ All domain classes should override ToString()
+✔ All domain classes should override ToString() @done (10. 11. 2019. 18:48:26)
 ✔ Extract LinqExtensions to SharedKernel and write tests. @done (10. 11. 2019. 18:29:55)
 ✔ ShoppingBasketBuilder1 rename to ShoppingBasketBuilder @done (10. 11. 2019. 18:29:57)
 ☐ DI Helper.
+☐ Service to ShoppingBasketBuilder
+    ☐ All tests green?
+    ☐ Move service tests to shopping basket tests.
+    ☐ New tests: add item.
+☐ ShoppingBasketServiceTests are now empty.
