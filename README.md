@@ -49,7 +49,7 @@ Cover all the above domain classes and shared kernel.
 
 ### Usage
 
-#### Compiling:
+#### Compiling
 
     cd ./ShoppingBasket.Core/
     dotnet build
@@ -58,15 +58,14 @@ Or you can build the whole solution from the root with:
 
     dotnet build
 
-### ASP.NET Core integration:
+#### Getting started
 
-1. Drop the .dll in your bin folder.
-2. using ShoppingBasket.Core;
+using ShoppingBasket.Core;
 
-   // ...
+// ...
 
-   var shoppingBasket = new ShoppingBasket(new List<Item>(), new List<Discount>());
-   shoppingBasket.Add(new Item(new Product("Butter", 0.8m)));
+var shoppingBasket = new ShoppingBasket(new List<Item>(), new List<Discount>());
+shoppingBasket.Add(new Item(new Product("Butter", 0.8m)));
 
 #### Logging
 
