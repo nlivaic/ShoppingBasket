@@ -10,7 +10,7 @@ I had the idea of laying everything out according to [Onion architecture](https:
 
 Domain logic is entirely in the `ShoppingBasket.Core` project, backed by tests in an accompanying project.
 
-###### Shared Kernel
+#### Shared Kernel
 
 Basic functionalities for every entity and value object can be found in `ShoppingBasket.SharedKernel` project. This covers:
 
@@ -18,7 +18,7 @@ Basic functionalities for every entity and value object can be found in `Shoppin
 - Equality (by identity for entities and by property values for value objects).
 - Equality operator overloads.
 
-#### Domain and business rules
+#### Domain
 
 **Shopping Basket** can be created by adding a list of items and discounts. Additional items can be added on-the-fly, triggering recalculation of discounts.
 
@@ -33,7 +33,7 @@ Basic functionalities for every entity and value object can be found in `Shoppin
 
 **Products** are just that, products :)
 
-###### Business rules
+#### Business rules
 
 Multiple discounts cannot be compounded towards the same product.
 
