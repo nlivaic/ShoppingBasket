@@ -60,12 +60,12 @@ Or you can build the whole solution from the root with:
 
 #### Getting started
 
-using ShoppingBasket.Core;
+    using ShoppingBasket.Core;
 
-// ...
+    // ...
 
-var shoppingBasket = new ShoppingBasket(new List<Item>(), new List<Discount>());
-shoppingBasket.Add(new Item(new Product("Butter", 0.8m)));
+    var shoppingBasket = new ShoppingBasket(new List<Item>(), new List<Discount>());
+    shoppingBasket.Add(new Item(new Product("Butter", 0.8m)));
 
 #### Logging
 
