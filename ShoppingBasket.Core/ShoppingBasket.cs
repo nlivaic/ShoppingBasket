@@ -11,37 +11,50 @@ namespace ShoppingBasket.Core
         {
             get => _items;
         }
-        public decimal TotalSum { get => Items.Sum(item => item.FinalPrice); }
+        public decimal TotalSum
+        {
+            get
+            {
+                var sum = Items.Sum(item => item.FinalPrice);
+                _items.ForEach(item => _logger.Log(item.ToString()));
+                _logger.Log($"Sum: {sum}");
+                return sum;
+            }
+        }
 
         private List<Item> _items;
         private IEnumerable<Discount> _discounts;
+        private IShoppingBasketLogger _logger;
 
-        public ShoppingBasket() : this(Guid.NewGuid(), new List<Item>(), new List<Discount>())
+        public ShoppingBasket() : this(Guid.NewGuid(), new List<Item>(), new List<Discount>(), new ShoppingBasketConsoleLogger())
         {
         }
 
-        public ShoppingBasket(Guid id) : this(id, new List<Item>(), new List<Discount>())
+        public ShoppingBasket(Guid id) : this(id, new List<Item>(), new List<Discount>(), new ShoppingBasketConsoleLogger())
         {
         }
 
         public ShoppingBasket(IEnumerable<Item> items)
             : this(Guid.NewGuid(),
                 items == null ? new List<Item>() : items,
-                new List<Discount>())
+                new List<Discount>(),
+                new ShoppingBasketConsoleLogger())
         {
         }
 
         public ShoppingBasket(IEnumerable<Item> items, IEnumerable<Discount> discounts)
             : this(Guid.NewGuid(),
                 items == null ? new List<Item>() : items,
-                discounts == null ? new List<Discount>() : discounts)
+                discounts == null ? new List<Discount>() : discounts,
+                new ShoppingBasketConsoleLogger())
         {
         }
 
-        public ShoppingBasket(Guid id, IEnumerable<Item> items, IEnumerable<Discount> discounts) : base(id)
+        public ShoppingBasket(Guid id, IEnumerable<Item> items, IEnumerable<Discount> discounts, IShoppingBasketLogger logger) : base(id)
         {
             _items = new List<Item>(items);
             _discounts = new List<Discount>(discounts);
+            _logger = logger;
             ProcessDiscounts();
         }
 

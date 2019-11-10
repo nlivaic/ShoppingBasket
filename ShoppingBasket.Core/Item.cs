@@ -9,12 +9,12 @@ namespace ShoppingBasket.Core
         public decimal FinalPrice
         {
             // Apply discount only if the discount's target is scoped to the item's product.
-            get => DiscountTarget ?
+            get => IsDiscountTarget ?
                 Product.Price - (Product.Price * Discount.PriceReductionPercentage / 100) :
                 Product.Price;
         }
         public Discount Discount { get; private set; }
-        public bool DiscountTarget { get; private set; }
+        public bool IsDiscountTarget { get; private set; }
 
         public Item(Product product) : this(Guid.NewGuid(), product)
         {
@@ -27,7 +27,7 @@ namespace ShoppingBasket.Core
                 throw new ArgumentException("Item must have a product.");
             }
             Product = product;
-            DiscountTarget = false;
+            IsDiscountTarget = false;
         }
 
         public void ScopeDiscount(Discount discount)
@@ -37,7 +37,7 @@ namespace ShoppingBasket.Core
                 throw new ArgumentException("Item can only scope a non-null discount.");
             }
             Discount = discount;
-            DiscountTarget = false;
+            IsDiscountTarget = false;
         }
 
         public void ScopeDiscountTarget(Discount discount)
@@ -47,16 +47,20 @@ namespace ShoppingBasket.Core
                 throw new ArgumentException("Item can only scope a non-null discount.");
             }
             Discount = discount;
-            DiscountTarget = true;
+            IsDiscountTarget = true;
         }
 
         public void Descope()
         {
             Discount = null;
-            DiscountTarget = false;
+            IsDiscountTarget = false;
         }
 
 
-        public override string ToString() => $"Item '{Product}', priced at '{FinalPrice}', scoped by '{Discount}'.";
+        public override string ToString()
+        {
+            string target = IsDiscountTarget ? "targeted by '{Discount}'" : "";
+            return $"Item '{Product}', priced at '{FinalPrice}', {target}.";
+        }
     }
 }
