@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ShoppingBasket.Core.Tests
 {
@@ -9,7 +10,6 @@ namespace ShoppingBasket.Core.Tests
 
         public ShoppingBasketBuilder()
         {
-            _target = new ShoppingBasket();
             _products = new List<Product>();
         }
 
@@ -33,6 +33,6 @@ namespace ShoppingBasket.Core.Tests
             return this;
         }
 
-        public ShoppingBasket Build() => _target;
+        public ShoppingBasket Build() => new ShoppingBasket(_products.Select(p => new ItemBuilder().AddProduct(p).Build()));
     }
 }

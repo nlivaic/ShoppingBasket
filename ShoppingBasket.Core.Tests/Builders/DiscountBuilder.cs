@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 
 namespace ShoppingBasket.Core.Tests
 {
     public class DiscountBuilder
     {
+        private Guid _id;
         private decimal _priceReductionPercentage;
         private List<Product> _requirements;
         private Product _discountTarget;
@@ -17,6 +19,8 @@ namespace ShoppingBasket.Core.Tests
 
         public DiscountBuilder ButterBreadDiscount()
         {
+            _id = new Guid("e5e3c173-0c1c-4d88-969d-64d33d96722e");
+            _name = "ButterBreadDiscount";
             _requirements.Add(ProductBuilder.Butter);
             _requirements.Add(ProductBuilder.Butter);
             _discountTarget = ProductBuilder.Bread;
@@ -24,8 +28,21 @@ namespace ShoppingBasket.Core.Tests
             return this;
         }
 
+        public DiscountBuilder MilkBreadDiscount()
+        {
+            _id = new Guid("e5e3c173-0c1c-4d88-969d-64d33d96722e");
+            _name = "MilkBreadDiscount";
+            _requirements.Add(ProductBuilder.Milk);
+            _requirements.Add(ProductBuilder.Milk);
+            _discountTarget = ProductBuilder.Bread;
+            _priceReductionPercentage = 80;
+            return this;
+        }
+
         public DiscountBuilder ThreeMilksDiscount()
         {
+            _id = new Guid("e5e3c173-0c1c-4d88-969d-64d33d96722e");
+            _name = "ThreeMilksDiscount";
             _requirements.Add(ProductBuilder.Milk);
             _requirements.Add(ProductBuilder.Milk);
             _requirements.Add(ProductBuilder.Milk);
@@ -63,6 +80,7 @@ namespace ShoppingBasket.Core.Tests
             new List<Product> { new Product("Product #1", 1m) }, null);
 
         public Discount Build() =>
-            new Discount(_name, _priceReductionPercentage, _requirements, _discountTarget);
+            new Discount(_id, _name, _priceReductionPercentage, _requirements, _discountTarget);
+
     }
 }

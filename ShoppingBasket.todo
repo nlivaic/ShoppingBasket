@@ -1,4 +1,10 @@
-☐ Shared Kernel testovi
-    ☐ Ne možeš izgraditi sa default idjem
-    ☐ Equality radi po Id.
-    
+✔ Shared Kernel testovi @done (10. 11. 2019. 11:23:39)
+    ✔ Ne možeš izgraditi sa default idjem @done (10. 11. 2019. 11:23:39)
+    ✔ Equality radi po Id. @done (10. 11. 2019. 11:23:38)
+☐ Shopping Basket Service
+    ☐ Logic
+    ☐ Tests - move tests to standalone file. Foo Foo
+☐ Logging
+☐ All domain classes should override ToString()
+☐ Extract method and yield in ApplyDiscounts.
+☐ Extract LinqExtensions to SharedKernel and write tests.

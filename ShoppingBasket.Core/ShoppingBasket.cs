@@ -19,13 +19,13 @@ namespace ShoppingBasket.Core
         {
         }
 
-        public ShoppingBasket(List<Item> items) : this(Guid.NewGuid(), items == null ? new List<Item>() : items)
+        public ShoppingBasket(IEnumerable<Item> items) : this(Guid.NewGuid(), items == null ? new List<Item>() : items)
         {
         }
 
-        public ShoppingBasket(Guid id, List<Item> items) : base(id)
+        public ShoppingBasket(Guid id, IEnumerable<Item> items) : base(id)
         {
-            _items = items;
+            _items = new List<Item>(items);
         }
     }
 }
