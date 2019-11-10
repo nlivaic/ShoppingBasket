@@ -9,8 +9,8 @@ namespace ShoppingBasket.SharedKernel.Tests
         public void EntityObjects_CanTestForEquality()
         {
             // Arrange
-            Core.ShoppingBasket target1 = new Core.ShoppingBasket(new Guid("54d7d622-b6c0-4791-b54f-086be047aee8"), null);
-            Core.ShoppingBasket target2 = new Core.ShoppingBasket(new Guid("54d7d622-b6c0-4791-b54f-086be047aee8"), null);
+            Core.ShoppingBasket target1 = ShoppingBasketBuilder.Build1;
+            Core.ShoppingBasket target2 = ShoppingBasketBuilder.Build1;
 
             // Act
             bool result = target1 == target2;
@@ -24,8 +24,8 @@ namespace ShoppingBasket.SharedKernel.Tests
         public void EntityObjects_CanTestForInequality()
         {
             // Arrange
-            Core.ShoppingBasket target1 = new Core.ShoppingBasket(new Guid("54d7d622-b6c0-4791-b54f-086be047aee8"), null);
-            Core.ShoppingBasket target2 = new Core.ShoppingBasket(new Guid("7088126c-79a1-478f-85c5-a9a5881f4702"), null);
+            Core.ShoppingBasket target1 = ShoppingBasketBuilder.Build1;
+            Core.ShoppingBasket target2 = ShoppingBasketBuilder.Build2;
 
             // Act
             bool result = target1 == target2;

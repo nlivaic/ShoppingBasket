@@ -5,7 +5,6 @@ namespace ShoppingBasket.Core.Tests
 {
     public class ShoppingBasketBuilder
     {
-        private ShoppingBasket _target;
         private List<Product> _products;
 
         public ShoppingBasketBuilder()
