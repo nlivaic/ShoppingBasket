@@ -13,7 +13,7 @@
     ✔ All tests green? @done (10. 11. 2019. 19:19:03)
     ✔ Move service tests to shopping basket tests. @done (10. 11. 2019. 19:19:04)
     ✔ New tests: add item. @done (10. 11. 2019. 19:19:05)
-☐ Napraviti sve testove kao u zadatku (scenarios).
+✔ Napraviti sve testove kao u zadatku (scenarios). @done (10. 11. 2019. 20:28:18)
 ☐ ShoppingBasketServiceTests are now empty.
 ☐ Dovršiti Release Notes "Usage".
 ✔ Shopping Basket testovi se referiraju na varijablu discountedItems makar često u testu nije discounted. @done (10. 11. 2019. 19:18:58)

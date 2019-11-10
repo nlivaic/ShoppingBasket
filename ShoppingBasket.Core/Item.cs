@@ -8,7 +8,7 @@ namespace ShoppingBasket.Core
         public Product Product { get; private set; }
         public decimal FinalPrice
         {
-            // Apply discount only if the discount is scoped to the item's product.
+            // Apply discount only if the discount's target is scoped to the item's product.
             get => DiscountTarget ?
                 Product.Price - (Product.Price * Discount.PriceReductionPercentage / 100) :
                 Product.Price;
