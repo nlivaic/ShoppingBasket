@@ -26,5 +26,6 @@ namespace ShoppingBasket.Core
             Price = price;
         }
 
+        public override string ToString() => $"Product '{Name}', priced at {Price}.";
     }
 }

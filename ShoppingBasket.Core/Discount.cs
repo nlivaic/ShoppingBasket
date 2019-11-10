@@ -49,5 +49,12 @@ namespace ShoppingBasket.Core
             _requirements = requirements;
             Target = target;
         }
+
+        public override string ToString()
+        {
+            string requirements = string.Join(", ", Requirements.Select(product => product.Name));
+            return $"Discount '{Name}', reducing price by '{PriceReductionPercentage}%', requiring: '{requirements}', targeting: '{Target}'";
+        }
+
     }
 }

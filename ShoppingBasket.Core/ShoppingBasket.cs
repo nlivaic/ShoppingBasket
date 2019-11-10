@@ -31,5 +31,7 @@ namespace ShoppingBasket.Core
         {
             _items = new List<Item>(items);
         }
+
+        public override string ToString() => $"Shopping Basket with '{_items.Count}' products, total sum {TotalSum}.";
     }
 }

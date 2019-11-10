@@ -37,5 +37,7 @@ namespace ShoppingBasket.Core
             }
             Discount = discount;
         }
+
+        public override string ToString() => $"Item '{Product}', priced at '{FinalPrice}', scoped by '{Discount}'.";
     }
 }
