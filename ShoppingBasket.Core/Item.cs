@@ -38,6 +38,12 @@ namespace ShoppingBasket.Core
             Discount = discount;
         }
 
+        public void Descope()
+        {
+            Discount = null;
+        }
+
+
         public override string ToString() => $"Item '{Product}', priced at '{FinalPrice}', scoped by '{Discount}'.";
     }
 }

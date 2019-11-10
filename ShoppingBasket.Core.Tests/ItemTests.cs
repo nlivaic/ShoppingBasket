@@ -41,6 +41,25 @@ namespace ShoppingBasket.Core.Tests
         }
 
         [Fact]
+        public void Item_CanDescopeDiscount()
+        {
+            // Arrange
+            Discount breadDiscount = new DiscountBuilder()
+                .ButterBreadDiscount()
+                .Build();
+            Item target = new ItemBuilder()
+                .AddProduct(ProductBuilder.Bread)
+                .AddDiscount(breadDiscount)
+                .Build();
+
+            // Act
+            target.Descope();
+
+            // Assert
+            Assert.Null(target.Discount);
+        }
+
+        [Fact]
         public void Item_WithoutDiscount_CalculatesProductPrice()
         {
             // Arrange, Act

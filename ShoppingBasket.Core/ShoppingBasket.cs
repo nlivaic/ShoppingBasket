@@ -45,6 +45,15 @@ namespace ShoppingBasket.Core
             ProcessDiscounts();
         }
 
+        public void AddItem(Item item)
+        {
+            _items.ForEach(i => i.Descope());
+            _items.Add(item);
+            ProcessDiscounts();
+        }
+
+        public override string ToString() => $"Shopping Basket with '{_items.Count}' products, total sum {TotalSum}.";
+
         private void ProcessDiscounts()
         {
             if (_discounts?.Count() > 0)
@@ -94,13 +103,5 @@ namespace ShoppingBasket.Core
                 } while (true);
             }
         }
-
-        public void AddItem(Item item)
-        {
-            _items.Add(item);
-            ProcessDiscounts();
-        }
-
-        public override string ToString() => $"Shopping Basket with '{_items.Count}' products, total sum {TotalSum}.";
     }
 }

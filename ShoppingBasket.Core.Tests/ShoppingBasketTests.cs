@@ -73,9 +73,9 @@ namespace ShoppingBasket.Core.Tests
             var discounts = new List<Discount> {
                 new DiscountBuilder().ButterBreadDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
 
             // Act
+            var target = new ShoppingBasket(items, discounts);
             var discountedItems = target.Items.ToList();
 
             // Assert
@@ -103,9 +103,9 @@ namespace ShoppingBasket.Core.Tests
                 new DiscountBuilder().ButterBreadDiscount().Build(),    // Gives 50% off on bread.
                 new DiscountBuilder().MilkBreadDiscount().Build()       // Gives 80% off on bread.
             };
-            var target = new ShoppingBasket(items, discounts);
 
             // Act
+            var target = new ShoppingBasket(items, discounts);
             var discountedItems = target.Items.ToList();
 
             // Assert - discounts cannot be compounded on same target.
@@ -140,9 +140,9 @@ namespace ShoppingBasket.Core.Tests
             var discounts = new List<Discount> {
                 new DiscountBuilder().ButterBreadDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
 
             // Act
+            var target = new ShoppingBasket(items, discounts);
             var discountedItems = target.Items.ToList();
 
             // Assert
@@ -166,15 +166,15 @@ namespace ShoppingBasket.Core.Tests
             var discounts = new List<Discount> {
                 new DiscountBuilder().ButterBreadDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
 
             // Act
-            var discountedItems = target.Items.ToList();
+            var target = new ShoppingBasket(items, discounts);
+            var processedItems = target.Items.ToList();
 
             // Assert
-            Assert.Equal(2, discountedItems.Count);
+            Assert.Equal(2, processedItems.Count);
             Assert.Equal(1.6m, target.TotalSum);
-            Assert.Empty(discountedItems.Where(i => i.Discount != null));       // No discounts applied.
+            Assert.Empty(processedItems.Where(i => i.Discount != null));       // No discounts applied.
         }
 
         [Fact]
@@ -190,15 +190,15 @@ namespace ShoppingBasket.Core.Tests
             var discounts = new List<Discount> {
                 new DiscountBuilder().MilkBreadDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
 
             // Act
-            var discountedItems = target.Items.ToList();
+            var target = new ShoppingBasket(items, discounts);
+            var processedItems = target.Items.ToList();
 
             // Assert
-            Assert.Equal(3, discountedItems.Count);
+            Assert.Equal(3, processedItems.Count);
             Assert.Equal(2.6m, target.TotalSum);
-            Assert.Empty(discountedItems.Where(i => i.Discount != null));
+            Assert.Empty(processedItems.Where(i => i.Discount != null));
         }
 
         [Fact]
@@ -215,9 +215,9 @@ namespace ShoppingBasket.Core.Tests
                 new DiscountBuilder().ButterBreadDiscount().Build(),
                 new DiscountBuilder().MilkBreadDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
 
             // Act
+            var target = new ShoppingBasket(items, discounts);
             var discountedItems = target.Items.ToList();
 
             // Assert
@@ -233,5 +233,50 @@ namespace ShoppingBasket.Core.Tests
                         .Single(item => item.Product.Name == "Bread")
                         .FinalPrice);   // Discount was applied.
         }
+
+        [Fact]
+        public void ShoppingBasket_AddedItem_CalculatesDiscountsAndTotalPrice()
+        {
+            // Arrange
+            var items = new List<Item>
+            {
+                new ItemBuilder().AddProduct(ProductBuilder.Butter).Build(),
+                new ItemBuilder().AddProduct(ProductBuilder.Butter).Build(),
+                new ItemBuilder().AddProduct(ProductBuilder.Butter).Build()
+            };
+            var discounts = new List<Discount> {
+                new DiscountBuilder().ButterBreadDiscount().Build()
+            };
+            var target = new ShoppingBasket(items, discounts);
+
+            // Act #1 - original item list.
+            var processedItems = target.Items.ToList();
+
+            // Assert #1 - No Discounts yet.
+            Assert.Equal(3, processedItems.Count);
+            Assert.Equal(2.4m, target.TotalSum);
+            Assert.Empty(processedItems.Where(i => i.Discount != null));
+
+            // Act #2 - add item triggering the.
+            target.AddItem(new ItemBuilder().AddProduct(ProductBuilder.Bread).Build());
+            var discountedItems = target.Items.ToList();
+
+            // Assert #2 - Discounts applied.
+            Assert.Equal(4, discountedItems.Count);
+            Assert.Equal(2.9m, target.TotalSum);
+            Assert.Equal(3, discountedItems.Where(i => i.Discount != null).Count());
+            Assert.Single(discountedItems.Where(i => i.Product.Name == "Butter" && i.Discount == null));
+            Assert.All(discountedItems.Where(i => i.Product.Name == "Butter" && i.Discount == null), item => Assert.Equal(item.Product.Price, item.FinalPrice));      // Discount was not applied.
+            Assert.NotEqual(
+                discountedItems
+                    .Single(item => item.Product.Name == "Bread")
+                    .Product
+                    .Price,
+                discountedItems
+                    .Single(item => item.Product.Name == "Bread")
+                    .FinalPrice);   // Discount was applied.
+
+        }
+
     }
 }
