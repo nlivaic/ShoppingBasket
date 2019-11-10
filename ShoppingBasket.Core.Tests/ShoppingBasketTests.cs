@@ -257,7 +257,7 @@ namespace ShoppingBasket.Core.Tests
             Assert.Equal(2.4m, target.TotalSum);
             Assert.Empty(processedItems.Where(i => i.Discount != null));
 
-            // Act #2 - add item triggering the.
+            // Act #2 - add item triggering the discount.
             target.AddItem(new ItemBuilder().AddProduct(ProductBuilder.Bread).Build());
             var discountedItems = target.Items.ToList();
 
@@ -277,6 +277,5 @@ namespace ShoppingBasket.Core.Tests
                     .FinalPrice);   // Discount was applied.
 
         }
-
     }
 }

@@ -9,12 +9,12 @@ namespace ShoppingBasket.Core
         public decimal FinalPrice
         {
             // Apply discount only if the discount is scoped to the item's product.
-            get => Discount?.Target != Product ?
-                Product.Price :
-                Product.Price - (Product.Price * Discount.PriceReductionPercentage / 100);
+            get => DiscountTarget ?
+                Product.Price - (Product.Price * Discount.PriceReductionPercentage / 100) :
+                Product.Price;
         }
         public Discount Discount { get; private set; }
-
+        public bool DiscountTarget { get; private set; }
 
         public Item(Product product) : this(Guid.NewGuid(), product)
         {
@@ -27,6 +27,7 @@ namespace ShoppingBasket.Core
                 throw new ArgumentException("Item must have a product.");
             }
             Product = product;
+            DiscountTarget = false;
         }
 
         public void ScopeDiscount(Discount discount)
@@ -36,11 +37,23 @@ namespace ShoppingBasket.Core
                 throw new ArgumentException("Item can only scope a non-null discount.");
             }
             Discount = discount;
+            DiscountTarget = false;
+        }
+
+        public void ScopeDiscountTarget(Discount discount)
+        {
+            if (discount == null)
+            {
+                throw new ArgumentException("Item can only scope a non-null discount.");
+            }
+            Discount = discount;
+            DiscountTarget = true;
         }
 
         public void Descope()
         {
             Discount = null;
+            DiscountTarget = false;
         }
 
 

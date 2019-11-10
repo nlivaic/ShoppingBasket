@@ -70,7 +70,7 @@ namespace ShoppingBasket.Core
             var eligibleDiscounts = new List<Discount>();
             foreach (var discount in _discounts)
             {
-                if (productsInBasket.Intersect(discount.Scope).Any())
+                if (productsInBasket.StrictIntersect(discount.Scope).Any())
                 {
                     eligibleDiscounts.Add(discount);
                 }
@@ -80,21 +80,33 @@ namespace ShoppingBasket.Core
 
         private void ApplyDiscounts(IEnumerable<Discount> eligibleDiscountsByTotalBenefit)
         {
+            bool itemTargeted = false;
             foreach (var discount in eligibleDiscountsByTotalBenefit)
             {
                 do
                 {
+                    itemTargeted = false;
                     var scopedProducts = _items
                         .Where(item => item.Discount == null)       // At this point we have only products without any discounts assigned.
                         .Select(item => item.Product)
                         .ToList()
                         .StrictIntersect(discount.Scope)           // A list of products that are scoped within current discount.
                         .ToList();
-
-                    scopedProducts.ForEach(scopedProduct => _items
-                        .Where(item => item.Discount == null)
-                        .First(item => item.Product == scopedProduct)
-                        .ScopeDiscount(discount));
+                    scopedProducts.ForEach(scopedProduct =>
+                    {
+                        var scopedItem = _items
+                            .Where(item => item.Discount == null)
+                            .First(item => item.Product == scopedProduct);
+                        if (!itemTargeted && scopedItem.Product == discount.Target)
+                        {
+                            scopedItem.ScopeDiscountTarget(discount);
+                            itemTargeted = true;
+                        }
+                        else
+                        {
+                            scopedItem.ScopeDiscount(discount);
+                        }
+                    });
                     // Same discount is applied as long as there are available scoped products w/o discount applied to them.
                     if (scopedProducts.Count == 0)
                     {

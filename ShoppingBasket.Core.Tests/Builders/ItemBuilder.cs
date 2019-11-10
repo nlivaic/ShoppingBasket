@@ -14,7 +14,7 @@ namespace ShoppingBasket.Core.Tests
 
         public ItemBuilder AddDiscount(Discount discount)
         {
-            _target.ScopeDiscount(discount);
+            _target.ScopeDiscountTarget(discount);
             return this;
         }
 

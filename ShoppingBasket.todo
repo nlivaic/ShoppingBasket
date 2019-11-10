@@ -15,4 +15,49 @@
     ✔ New tests: add item. @done (10. 11. 2019. 19:19:05)
 ☐ Napraviti sve testove kao u zadatku (scenarios).
 ☐ ShoppingBasketServiceTests are now empty.
+☐ Dovršiti Release Notes "Usage".
 ✔ Shopping Basket testovi se referiraju na varijablu discountedItems makar često u testu nije discounted. @done (10. 11. 2019. 19:18:58)
+
+☐ Release Notes
+
+### Architecture
+
+Library is a DDD-ish implementation of a typical Shopping Basket.
+
+#### Shopping Basket
+
+Shopping Basket can be created by adding a list of items and discounts. Additional items can be added on-the-fly, triggering recalculation of discounts.
+
+Items are a represenation of a single unit of a specific product. So two milks would be represented by two separate `Item` objects. Having items one by one facilitated determining the scope of each discount. Shopping Basket is a container of Items.
+
+Discounts have several important characteristics:
+    * Requirements: list of products required in order to trigger the discount.
+    * Target: single product the discount is applied to.
+    * Scope: concatenation of Requirements and Target, used to determine whether items in a Shopping Basket can be combined to trigger a discount.
+    * Price reduction: a discount percentage.
+
+Products are just that, products.
+
+#### Shared Kernel
+
+Basic functionalities for every entity and value object can be found here. This covers:
+
+    * Identity property
+    * Equality (by identity for entities and by property values for value objects).
+    * Equality operator overloads.
+
+### Scenarios
+
+Scenarios are implemented as part of `ShoppingBasket.Core.Tests/ShoppingBasketScenarios.cs`.
+
+### Unit Tests ###
+
+Cover all the above domain classes and shared kernel.
+
+### Usage
+
+Compiling:
+
+ASP.NET Core integration:
+
+    // To Do
