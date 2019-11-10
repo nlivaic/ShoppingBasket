@@ -80,7 +80,7 @@ namespace ShoppingBasket.Core.Tests
             new List<Product> { new Product("Product #1", 1m) }, null);
 
         public Discount Build() =>
-            new Discount(_id, _name, _priceReductionPercentage, _requirements, _discountTarget);
+            new Discount(_id == default(Guid) ? Guid.NewGuid() : _id, _name, _priceReductionPercentage, _requirements, _discountTarget);
 
     }
 }

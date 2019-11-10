@@ -7,23 +7,27 @@ namespace ShoppingBasket.Core
 {
     public class ShoppingBasketService
     {
+        private IEnumerable<Item> _items;
+        private IEnumerable<Discount> _discounts;
         public ShoppingBasket CreateShoppingBasket(IEnumerable<Item> items, IEnumerable<Discount> discounts)
         {
-            var shoppingBasket = new ShoppingBasket(items);
-            if (discounts?.Count() > 0)
+            _items = items;
+            _discounts = discounts;
+            // var shoppingBasket = new ShoppingBasket(items);
+            if (_discounts?.Count() > 0)
             {
-                var eligibleDiscounts = FindEligibleDiscounts(shoppingBasket, discounts);
+                var eligibleDiscounts = FindEligibleDiscounts();
                 var eligibleDiscountsByTotalBenefit = eligibleDiscounts.OrderByDescending(discount => discount.Target.Price * discount.PriceReductionPercentage / 100);
-                ApplyDiscounts(shoppingBasket, eligibleDiscountsByTotalBenefit);
+                ApplyDiscounts(eligibleDiscountsByTotalBenefit);
             }
-            return shoppingBasket;
+            return new ShoppingBasket(items);
         }
 
-        private List<Discount> FindEligibleDiscounts(ShoppingBasket shoppingBasket, IEnumerable<Discount> discounts)
+        private List<Discount> FindEligibleDiscounts()
         {
-            var productsInBasket = shoppingBasket.Items.Select(item => item.Product).ToList();
+            var productsInBasket = _items.Select(item => item.Product).ToList();
             var eligibleDiscounts = new List<Discount>();
-            foreach (var discount in discounts)
+            foreach (var discount in _discounts)
             {
                 if (productsInBasket.Intersect(discount.Scope).Any())
                 {
@@ -33,22 +37,20 @@ namespace ShoppingBasket.Core
             return eligibleDiscounts;
         }
 
-        private void ApplyDiscounts(ShoppingBasket shoppingBasket, IEnumerable<Discount> eligibleDiscountsByTotalBenefit)
+        private void ApplyDiscounts(IEnumerable<Discount> eligibleDiscountsByTotalBenefit)
         {
             foreach (var discount in eligibleDiscountsByTotalBenefit)
             {
                 do
                 {
-                    var scopedProducts = shoppingBasket
-                        .Items
+                    var scopedProducts = _items
                         .Where(item => item.Discount == null)       // At this point we have only products without any discounts assigned.
                         .Select(item => item.Product)
                         .ToList()
                         .StrictIntersect(discount.Scope)           // A list of products that are scoped within current discount.
                         .ToList();
 
-                    scopedProducts.ForEach(scopedProduct => shoppingBasket
-                        .Items
+                    scopedProducts.ForEach(scopedProduct => _items
                         .Where(item => item.Discount == null)
                         .First(item => item.Product == scopedProduct)
                         .ScopeDiscount(discount));
