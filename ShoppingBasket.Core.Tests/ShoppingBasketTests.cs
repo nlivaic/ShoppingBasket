@@ -52,7 +52,7 @@ namespace ShoppingBasket.Core.Tests
             IEnumerable<Discount> discounts = new List<Discount>();
 
             // Act
-            var target = new ShoppingBasket();
+            var target = new ShoppingBasket(new DiscountProcessor());
 
             // Assert
             Assert.Empty(target.Items);
@@ -75,7 +75,7 @@ namespace ShoppingBasket.Core.Tests
             };
 
             // Act
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
             var discountedItems = target.Items.ToList();
 
             // Assert
@@ -105,7 +105,7 @@ namespace ShoppingBasket.Core.Tests
             };
 
             // Act
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
             var discountedItems = target.Items.ToList();
 
             // Assert - discounts cannot be compounded on same target.
@@ -142,7 +142,7 @@ namespace ShoppingBasket.Core.Tests
             };
 
             // Act
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
             var discountedItems = target.Items.ToList();
 
             // Assert
@@ -168,7 +168,7 @@ namespace ShoppingBasket.Core.Tests
             };
 
             // Act
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
             var processedItems = target.Items.ToList();
 
             // Assert
@@ -192,7 +192,7 @@ namespace ShoppingBasket.Core.Tests
             };
 
             // Act
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
             var processedItems = target.Items.ToList();
 
             // Assert
@@ -217,7 +217,7 @@ namespace ShoppingBasket.Core.Tests
             };
 
             // Act
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
             var discountedItems = target.Items.ToList();
 
             // Assert
@@ -247,7 +247,7 @@ namespace ShoppingBasket.Core.Tests
             var discounts = new List<Discount> {
                 new DiscountBuilder().ButterBreadDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
 
             // Act #1 - original item list.
             var processedItems = target.Items.ToList();

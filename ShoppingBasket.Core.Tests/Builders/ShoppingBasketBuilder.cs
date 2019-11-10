@@ -12,7 +12,7 @@ namespace ShoppingBasket.Core.Tests
             _products = new List<Product>();
         }
 
-        public static ShoppingBasket BuildWithoutItemList() => new ShoppingBasket(null);
+        public static ShoppingBasket BuildWithoutItemList() => new ShoppingBasket(null, new DiscountProcessor());
 
         public ShoppingBasketBuilder AddButter()
         {
@@ -32,6 +32,6 @@ namespace ShoppingBasket.Core.Tests
             return this;
         }
 
-        public ShoppingBasket Build() => new ShoppingBasket(_products.Select(p => new ItemBuilder().AddProduct(p).Build()));
+        public ShoppingBasket Build() => new ShoppingBasket(_products.Select(p => new ItemBuilder().AddProduct(p).Build()), new DiscountProcessor());
     }
 }

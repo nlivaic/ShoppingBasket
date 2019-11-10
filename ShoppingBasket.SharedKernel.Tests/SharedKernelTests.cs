@@ -1,4 +1,5 @@
 using System;
+using ShoppingBasket.Core;
 using Xunit;
 
 namespace ShoppingBasket.SharedKernel.Tests
@@ -38,14 +39,14 @@ namespace ShoppingBasket.SharedKernel.Tests
         public void EntityObjects_DefaultId_Throws()
         {
             // Arrange, Act, Assert
-            Assert.Throws<ArgumentException>(() => new Core.ShoppingBasket(default(Guid)));
+            Assert.Throws<ArgumentException>(() => new Core.ShoppingBasket(default(Guid), new DiscountProcessor()));
         }
 
         [Fact]
         public void EntityObjects_GetNonDefaultId()
         {
             // Arrange
-            Core.ShoppingBasket target1 = new Core.ShoppingBasket();
+            Core.ShoppingBasket target1 = new Core.ShoppingBasket(new DiscountProcessor());
 
             // Act
             bool result = target1.Id != default(Guid);

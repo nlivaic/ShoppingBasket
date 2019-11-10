@@ -15,7 +15,7 @@ namespace ShoppingBasket.Core.Tests
                 new DiscountBuilder().ButterBreadDiscount().Build(),
                 new DiscountBuilder().ThreeMilksDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
 
             // Act
             target.AddItem(new ItemBuilder().AddProduct(ProductBuilder.Bread).Build());
@@ -35,7 +35,7 @@ namespace ShoppingBasket.Core.Tests
                 new DiscountBuilder().ButterBreadDiscount().Build(),
                 new DiscountBuilder().ThreeMilksDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
 
             // Act
             target.AddItem(new ItemBuilder().AddProduct(ProductBuilder.Butter).Build());
@@ -56,7 +56,7 @@ namespace ShoppingBasket.Core.Tests
                 new DiscountBuilder().ButterBreadDiscount().Build(),
                 new DiscountBuilder().ThreeMilksDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
 
             // Act
             target.AddItem(new ItemBuilder().AddProduct(ProductBuilder.Milk).Build());
@@ -77,7 +77,7 @@ namespace ShoppingBasket.Core.Tests
                 new DiscountBuilder().ButterBreadDiscount().Build(),
                 new DiscountBuilder().ThreeMilksDiscount().Build()
             };
-            var target = new ShoppingBasket(items, discounts);
+            var target = new ShoppingBasket(items, discounts, new DiscountProcessor());
 
             // Act
             target.AddItem(new ItemBuilder().AddProduct(ProductBuilder.Butter).Build());
