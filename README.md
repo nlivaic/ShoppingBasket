@@ -8,7 +8,7 @@ Library is a [DDD principles](https://dddcommunity.org/library/vernon_2011/)-ish
 
 I had the idea of laying everything out according to [Onion architecture](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/), however because the domain is rather simple, all the classes are entities. There are no domain services as everything fit nicely in the domain classes.
 
-Domain logic is entirely in the `ShoppingBasket.Core` project, backed by tests in an accompanying project.
+Domain logic is entirely in the `ShoppingBasket.Core` project, backed by tests in an accompanying project. Each of the classes has a very narrow set of responsibilities (`Product`, `Item`, `Discount`) except for `ShoppingBasket`. `ShoppingBasket` is the aggregate root and is in charge of maintaining the business invariants, most complex of which is the discount processing logic. I thought of moving discount processing logic out to a separate class, but it felt kind of artifical to inject a separate non-domain related class into the `ShoppingBasket`. Maybe this approach would've made more sense if I went with the anemic model approach and kept most of the logic in the domain service layer.
 
 #### Shared Kernel
 
