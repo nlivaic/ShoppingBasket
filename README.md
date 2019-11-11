@@ -64,7 +64,7 @@ Or you can build the whole solution from the root with:
 
     // ...
 
-    var shoppingBasket = new ShoppingBasket(new List<Item>(), new List<Discount>());
+    var shoppingBasket = new ShoppingBasket(new List<Item>(), new List<Discount>(), new DiscountProcessor());
     shoppingBasket.Add(new Item(new Product("Butter", 0.8m)));
     var totalSum = shoppingBasket.TotalSum;
 
